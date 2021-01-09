@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if title %}{{title}}{% else %}PREP購入代行サービス{% endif %}</title>
+    <!-- Bootstrap 4 -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous" />
+    <!-- statis files -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'store/css/base.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'store/css/awesome-all.min.css' %}" />
+    {% block import %}{% endblock %}
+</head>
+
+<body>
+    <!-- anchor for Move to top button -->
+    <a href="#" id="my-scrollBtn" style="display: none;"></a>
+    <!-- Navigation bar -->
+    <div class="row">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="{% url 'store' %}">PREP in JAPAN</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
+                style="float: right;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">注文 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">ご利用規約</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">当サイトについて</a>
+                    </li>
+                </ul>
+                <div class="form-inline col-12 col-md-3">
+                    <a href="#" class="text-light login-area">Login
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+
+                    <a href="{% url 'cart' %}" id="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <p id="cart-total">0</p>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Main body -->
+    <div class="container-fluid container-with-margin background-top">
+        <div class="row">
+            <div class="col-12 col-md-9 left-content">
+                <div class="search-medication">
+                    {% block left_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-3 right-content">
+            {% block right_content %}{% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>
