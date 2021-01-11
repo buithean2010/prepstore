@@ -17,6 +17,8 @@ class Customer(models.Model):
 class Products(models.Model):
     name = models.CharField(max_length=512, null=True, blank=True)
     price = models.IntegerField()
+    img_url = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name

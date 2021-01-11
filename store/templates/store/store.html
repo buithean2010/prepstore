@@ -2,8 +2,26 @@
 
 {% load static %}
 {% block import %}
-<link rel="stylesheet" type="text/css" href="{% static 'main/css/part_symptoms.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/store.css' %}" />
 {% endblock %}
 
 {% block left_content %}
+<div class="row">
+    {% for p in products %}
+    <div class="col-md-4 col-12 my-card">
+        <div class="card">
+            {% with image_base|add:p.img_url as img_url %}
+            <img class="card-img-top" src="{{img_url}}" alt="{{p.name}}">
+            {% endwith %}
+            <div class="card-body">
+                <h5 class="card-title">{{p.name}}
+                </h5>
+                <p class="card-text">{{p.description}}</p>
+                <button class="btn btn-outline-secondary add-btn">カートに追加</button>
+                <p class="price-tag">{{p.price}}円</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

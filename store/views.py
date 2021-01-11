@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 
 def store(request):
+    # get products list
     context = {}
     return render(request, 'store/store.html', context)
 

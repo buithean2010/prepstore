@@ -1,0 +1,12 @@
+.my-card {
+    margin-top: 10px;
+    padding-left: 5px !important;
+    padding-right: 5px !important; 
+}
+
+.price-tag {
+    display: block;
+    float: right;
+    font-size: 80%;
+    padding-top: 8px;
+}
