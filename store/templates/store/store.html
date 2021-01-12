@@ -3,6 +3,7 @@
 {% load static %}
 {% block import %}
 <link rel="stylesheet" type="text/css" href="{% static 'store/css/store.css' %}" />
+<script type="text/javascript" src="{% static 'store/js/cart.js' %}"></script>
 {% endblock %}
 
 {% block left_content %}
@@ -17,7 +18,8 @@
                 <h5 class="card-title">{{p.name}}
                 </h5>
                 <p class="card-text">{{p.description}}</p>
-                <button class="btn btn-outline-secondary add-btn">カートに追加</button>
+                <button class="btn btn-outline-secondary add-btn update-cart" data-product={{p.id}}
+                    data-action="add">カートに追加</button>
                 <p class="price-tag">{{p.price}}円</p>
             </div>
         </div>

@@ -1,0 +1,33 @@
+.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+    margin-left: -15px;
+    margin-right: -15px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+td.vertical-middle {
+    vertical-align: middle;
+}
+
+.right-align {
+    text-align: right
+}
+
+div.quantity {
+    display: inline;
+}
+
+div.quantity a {
+    color: black;
+}
+div.quantity a:hover {
+    color: darkblue;
+}
+
+div.bottom_separator {
+    border-bottom: 1px solid;
+    border-bottom-style: dotted;
+}

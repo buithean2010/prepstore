@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .base import BaseView
+from .base import BaseView, TitleConst
 
 
 from ..data_access_objects.storeDAO import *
@@ -7,7 +7,7 @@ from ..data_access_objects.storeDAO import *
 
 class StoreView(BaseView):
     '''
-    Display Symptoms for each body part
+    Store's View
     '''
 
     def __init__(self):
@@ -17,7 +17,7 @@ class StoreView(BaseView):
         products = get_all_products()
 
         context = {
-            'title': 'PREP購入代行サービス',
+            'title': TitleConst.STORE_VIEW_TITLE,
             'products': products,
             'image_base': self.get_image_base(),
         }
