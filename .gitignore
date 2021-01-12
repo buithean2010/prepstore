@@ -1,3 +1,6 @@
 env/
 store/__pycache__
+store/data_access_objects/__pycache__
+store/view_classes/__pycache__
+__pycache__
 .vscode/
