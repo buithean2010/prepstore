@@ -1,0 +1,174 @@
+{% extends "store/base.html" %}
+
+{% load static %}
+{% block import %}
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/account.css' %}" />
+<script type="text/javascript">
+    function doUpdateAddress(element) {
+        $(element).prop('disabled', true);
+        $("form[name='updateForm']").submit();
+    }
+</script>
+{% endblock %}
+
+{% block left_content %}
+<div class="row">
+    <div class="col-md-12 col-12">
+        <div class="box-element">
+            <a class="btn btn-outline-success" href="{% url 'checkout' %}">&#x2190; 前のページへ戻る</a>
+            <br>
+            <br>
+            <hr>
+            <h3>お届け先一覧</h3>
+            <hr>
+            {% if has_address %}
+            <div class="divAddressList">
+                <table class="table">
+                    <colgroup>
+                        <col style="width: 80%">
+                        <col>
+                    </colgroup>
+                    {% for addr in addresses %}
+                    <tr>
+                        <td>
+                            {{addr.one_row_string|safe}}
+                        </td>
+                        <td class="vertical-middle"><button type="button" class="btn btn-primary btn-sm"
+                                data-id={{addr.id}} data-action="edit">変更</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-id={{addr.id}}
+                                data-action="delete">削除</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% else %}
+            <p>お届け先は登録されていません。</p>
+            {% endif %}
+            <a href="{% url 'account_address' %}?action=add" class="btn btn-primary btn-sm"
+                style="width: 120px;">アドレスの追加</a>
+            <a href="{% url 'checkout' %}" class="btn btn-secondary btn-sm" style="width: 120px">&#x2190; 前ページへ戻る</a>
+        </div>
+    </div>
+    {% if action %}
+    <!-- Shipping Address (Edit/Add Mode)-->
+    <div class="col-md-12 col-12">
+        <div class="box-element">
+            <hr>
+            <h3>お届け先</h3>
+            <hr>
+            {% if action == "edit" %}
+            <!-- edit form -->
+            <form action="" method="POST" name="updateForm">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputFirstname">名</label>
+                        <input type="text" class="form-control" id="inputFirstname" placeholder="Taro" name="first_name"
+                            value="{{form.data.first_name|default_if_none:''}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputLName">姓</label>
+                        <input type="text" class="form-control" id="inputLName" placeholder="Prep" name="last_name"
+                            value="{{form.data.last_name|default_if_none:''}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCompany">勤務先名(任意)</label>
+                    <input type="text" class="form-control" id="inputCompany" placeholder="Prep .Ltd"
+                        name="company_name" value="{{form.data.company_name|default_if_none:''}}">
+                </div>
+                <div class="form-row">
+                    <input type="hidden" name="country" value="Japan">
+                    <input type="hidden" name="id" value="{{form.data.id}}">
+                    <div class="form-group col-md-8 col-8">
+                        <label for="inputRegion">都道府県</label>
+                        <select id="inputRegion" class="form-control" name="region">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 col-4">
+                        <label for="inputPost_no">郵便番号</label>
+                        <input type="text" class="form-control" id="inputPost_no" placeholder="1234567" name="post_no"
+                            value="{{form.data.post_no|default_if_none:''}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress1">市区町村</label>
+                    <input type="text" class="form-control" id="inputAddress1" placeholder="Shinjuku, Shinjuku 2-3-4"
+                        name="address_1" value="{{form.data.address_1|default_if_none:''}}">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">建物名など</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Mansion 101"
+                        name="address_2" value="{{form.data.address_2|default_if_none:''}}">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone_no">電話番号</label>
+                    <input type="text" class="form-control" id="inputPhone_no" placeholder="0312345678" name="phone_no"
+                        value="{{form.data.phone_no|default_if_none:''}}">
+                </div>
+            </form>
+            {% elif action == "add" %}
+            <!-- add form -->
+            <form action="" method="POST" name="updateForm">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputFirstname">名</label>
+                        <input type="text" class="form-control" id="inputFirstname" placeholder="Taro" name="first_name"
+                            value="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputLName">姓</label>
+                        <input type="text" class="form-control" id="inputLName" placeholder="Prep" name="last_name"
+                            value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputCompany">勤務先名(任意)</label>
+                    <input type="text" class="form-control" id="inputCompany" placeholder="Prep .Ltd"
+                        name="company_name" value="">
+                </div>
+                <div class="form-row">
+                    <input type="hidden" name="country" value="Japan">
+                    <input type="hidden" name="id" value="">
+                    <div class="form-group col-md-8 col-8">
+                        <label for="inputRegion">都道府県</label>
+                        <select id="inputRegion" class="form-control" name="region">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4 col-4">
+                        <label for="inputPost_no">郵便番号</label>
+                        <input type="text" class="form-control" id="inputPost_no" placeholder="1234567" name="post_no"
+                            value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress1">市区町村</label>
+                    <input type="text" class="form-control" id="inputAddress1" placeholder="Shinjuku, Shinjuku 2-3-4"
+                        name="address_1" value="">
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress2">建物名など</label>
+                    <input type="text" class="form-control" id="inputAddress2" placeholder="Mansion 101"
+                        name="address_2" value="">
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone_no">電話番号</label>
+                    <input type="text" class="form-control" id="inputPhone_no" placeholder="0312345678" name="phone_no"
+                        value="">
+                </div>
+            </form>
+            {% endif %}
+            <button href="" class="btn btn-primary btn-sm" style="width: 80px;"
+                onclick="doUpdateAddress(this);">保存</button>
+            <a href="{% url 'account_address' %}" class="btn btn-secondary btn-sm" style="width: 80px">キャンセル</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

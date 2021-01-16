@@ -1,7 +1,7 @@
 from django.views import View
 from django.http import JsonResponse
 import json
-from ..data_access_objects.cartDAO import *
+
 from ..models import *
 
 

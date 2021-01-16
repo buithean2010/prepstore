@@ -50,7 +50,7 @@
     <a href="#" id="my-scrollBtn" style="display: none;"></a>
     <!-- Navigation bar -->
     <div class="row">
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
             <a class="navbar-brand" href="{% url 'store' %}">PREP in JAPAN</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
@@ -70,10 +70,15 @@
                     </li>
                 </ul>
                 <div class="form-inline col-12 col-md-3">
-                    <a href="#" class="text-light login-area">Login
+                    {% if user.is_anonymous %}
+                    <a href="#" class="text-light login-area">サインイン
                         <i class="fas fa-sign-in-alt"></i>
                     </a>
-
+                    {% else %}
+                    <a href="#" class="text-light login-area">サインアウト
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                    {% endif %}
                     <a href="{% url 'cart' %}" id="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                     </a>

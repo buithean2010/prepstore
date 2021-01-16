@@ -1,17 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import redirect
+
+from .form import ShippingAddressForm
 
 
-def store(request):
-    # get products list
-    context = {}
-    return render(request, 'store/store.html', context)
-
-
-def cart(request):
-    context = {}
-    return render(request, 'store/cart.html', context)
-
-
-def checkout(request):
-    context = {}
-    return render(request, 'store/checkout.html', context)
+def update_address(request):
+    if request.POST:
+        form = ShippingAddressForm(request.POST)
+        if form.is_valid():
+            # update or save data
+            pass
+        else:
+            return redirect()

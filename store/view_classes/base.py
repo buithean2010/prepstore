@@ -8,28 +8,41 @@ from ..models import Orders
 
 class BaseView(View):
     def __init__(self, tpl_name):
+        """
+        Init
+        """
         self.template_name = tpl_name
         self.context = {}
-        self.request_params = {}
         self.customer = None
 
     def get(self, request, *args, **kwargs):
-        self.request_params = kwargs
+        """
+        GET Method
+        """
         self.context = self.get_cart_info(request.user)
+        self.context.update({'image_base': self.get_image_base()})
         self.context.update(self.set_context())
 
         return render(request, self.template_name, self.context)
 
     def post(self, request, *args, **kwargs):
+        """
+        POST Method
+        """
+        self.form = self.set_form()
+
+        if form.is_valid():
+            a = 1
+
         pass
 
     def set_context(self):
         pass
 
     def get_image_base(self):
-        host = ''
+        host = HostUrl.HOST_URL
         if settings.DEBUG:
-            host = 'http://127.0.0.1:8000/'
+            host = HostUrl.DEBUG_URL
 
         return host
 
@@ -64,7 +77,17 @@ class BaseView(View):
 
         return {'cartItems': cartItems}
 
+    def set_form(self):
+        pass
+
 
 class TitleConst:
     STORE_VIEW_TITLE = 'PREP購入代行サービス'
     CART_VIEW_TITLE = 'PREP購入代行サービス'
+    CHECK_OUT_TITLE = 'PREP購入代行サービス'
+    ACCOUNT_ADDRESS_TITLE = 'PREP購入代行サービス'
+
+
+class HostUrl:
+    DEBUG_URL = 'http://127.0.0.1:8000/'
+    HOST_URL = ''

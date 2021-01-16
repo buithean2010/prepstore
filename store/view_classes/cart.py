@@ -1,7 +1,7 @@
 from .base import BaseView, TitleConst
 from django.shortcuts import render
 
-from ..data_access_objects.cartDAO import *
+from ..models import *
 
 
 class CartView(BaseView):
@@ -31,7 +31,6 @@ class CartView(BaseView):
             'cart': {},
             'order': order,
             'items': items,
-            'image_base': self.get_image_base(),
             'is_mobile_device': is_mobile_device,
         }
 
