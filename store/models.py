@@ -35,13 +35,16 @@ class ShippingAddress(models.Model):
     first_name = models.CharField(max_length=150, null=True, blank=True)
     last_name = models.CharField(max_length=150, null=True, blank=True)
     company_name = models.CharField(max_length=150, null=True, blank=True)
-    country = models.CharField(max_length=128, default="Japan")
-    region = models.CharField(max_length=128, default='Tokyo')
-    post_no = models.CharField(max_length=7, default='0000000')
-    address_1 = models.CharField(max_length=512)
+    country = models.CharField(
+        max_length=128, default="Japan", null=True, blank=True)
+    region = models.CharField(
+        max_length=128, default='Tokyo', null=True, blank=True)
+    post_no = models.CharField(
+        max_length=7, null=True, blank=True)
+    address_1 = models.CharField(max_length=512, null=True, blank=True)
     address_2 = models.CharField(max_length=512, null=True, blank=True)
     phone_no = models.CharField(max_length=20, null=True, blank=True)
-    default_flg = models.BooleanField(default=True)
+    default_flg = models.BooleanField(default=True, null=True, blank=True)
 
     def __str__(self):
         value = f'{self.first_name} {self.last_name}<br>'

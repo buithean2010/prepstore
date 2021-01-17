@@ -11,3 +11,11 @@
 td.vertical-middle {
     vertical-align: middle;
 }
+
+ul.errorlist {
+    padding-inline-start: 20px;
+}
+
+.errorlist li {
+    color: red;
+}

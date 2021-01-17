@@ -7,6 +7,7 @@ from ..models import Orders
 
 
 class BaseView(View):
+    # region INIT
     def __init__(self, tpl_name):
         """
         Init
@@ -15,30 +16,55 @@ class BaseView(View):
         self.context = {}
         self.customer = None
 
+    # endregion
+
+    # region GET
     def get(self, request, *args, **kwargs):
         """
         GET Method
         """
         self.context = self.get_cart_info(request.user)
         self.context.update({'image_base': self.get_image_base()})
-        self.context.update(self.set_context())
+        child_context = self.set_context()
+        if child_context:
+            self.context.update(child_context)
 
         return render(request, self.template_name, self.context)
-
-    def post(self, request, *args, **kwargs):
-        """
-        POST Method
-        """
-        self.form = self.set_form()
-
-        if form.is_valid():
-            a = 1
-
-        pass
 
     def set_context(self):
         pass
 
+    # endregion
+
+    # region POST
+    def post(self, request, *args, **kwargs):
+        """
+        POST Method
+        """
+        form = self.set_form()
+        if form.is_valid():
+            return self.process_valid_form()
+        else:
+            self.context = self.get_cart_info(request.user)
+            self.context.update({'image_base': self.get_image_base()})
+            self.context.update({'form': form})
+            child_context = self.set_post_context()
+            if child_context:
+                self.context.update(child_context)
+            return render(request, self.template_name, self.context)
+
+    def set_form(self):
+        pass
+
+    def set_post_context(self):
+        pass
+
+    def process_valid_form(self):
+        pass
+
+    # endregion
+
+    # region UTILS
     def get_image_base(self):
         host = HostUrl.HOST_URL
         if settings.DEBUG:
@@ -77,8 +103,7 @@ class BaseView(View):
 
         return {'cartItems': cartItems}
 
-    def set_form(self):
-        pass
+    # endregion
 
 
 class TitleConst:

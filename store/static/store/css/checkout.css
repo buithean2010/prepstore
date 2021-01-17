@@ -2,10 +2,35 @@
 	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
 	background-color: #fff;
 	border-radius: 4px;
+    margin-left: -25px;
+    margin-right: -25px;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+h3.h3-inline {
+        display: block;
+    }
+
+@media (min-width: 576px) {
+    .box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
     margin-left: -10px;
     margin-right: -10px;
     margin-top: 15px;
     padding: 10px;
+    }
+
+    h3.h3-inline {
+        display: inline;
+    }
+
+    .f-right {
+        float: right;
+        margin-top: 8px;
+    }
 }
 
 td.vertical-middle {

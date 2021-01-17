@@ -3,6 +3,7 @@
 {% load static %}
 {% block import %}
 <link rel="stylesheet" type="text/css" href="{% static 'store/css/checkout.css' %}" />
+<script type="text/javascript" src="{% static 'store/js/checkout.js' %}"></script>
 {% endblock %}
 
 {% block left_content %}
@@ -45,11 +46,21 @@
     <div class="col-md-6 col-12">
         <div class="box-element">
             <hr>
-            <h3>お届け先</h3>
-            <hr>
-            <p style="padding:10px">
-                {{shipping_addr|safe}}
-            </p>
+            <h3 class="h3-inline">お届け先</h3>
+            {% if shipping_addresses.count > 1 %}
+            <select class="f-right" onchange="updateOrderAddress();" id="shippingSelect">
+                {% for addr in shipping_addresses %}
+                <option value="{{addr.id}}">〒{{addr.post_no}}-{{addr.first_name}} {{addr.last_name}}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
+            {% for addr in shipping_addresses %}
+            <div style="padding-left: 10px; display: none;" id="shippingAddr_{{addr.id}}" class="shipping_addr"
+                data-shipping={{addr.id}}>
+                <hr>
+                {{addr|safe}}
+            </div>
+            {% endfor %}
             <hr>
             <a href="{% url 'account_address' %}">>>お届け先の追加・変更ページへ</a>
         </div>

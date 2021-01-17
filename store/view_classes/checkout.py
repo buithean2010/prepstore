@@ -16,12 +16,15 @@ class CheckOutView(BaseView):
     def set_context(self):
         form = ShippingAddressForm(self.request.POST or None)
         shipping_addr = None
+        shipping_addresses = []
 
         if self.request.user.is_authenticated:
             # login user
             # get default shipping address
-            shipping_addr = ShippingAddress.objects.get(
-                customer=self.customer, default_flg=True)
+            shipping_addr = ShippingAddress.objects.filter(
+                customer=self.customer).first()
+            shipping_addresses = ShippingAddress.objects.filter(
+                customer=self.customer)
             # get cart items
             order, created = Orders.objects.get_or_create(
                 customer=self.customer, complete_flg=False)
@@ -35,6 +38,7 @@ class CheckOutView(BaseView):
             'form': form,
             'order': order,
             'shipping_addr': shipping_addr,
+            'shipping_addresses': shipping_addresses,
             'items': items,
         }
 
